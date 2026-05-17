@@ -82,18 +82,41 @@
 .r-s-bad { background: #FCEBEB; color: #A32D2D; }
 .r-note { font-size: 11px; color: #aaa; padding: 10px 12px; background: #f8f8f8; border-radius: 8px; line-height: 1.6; margin-top: 10px; }
 .r-invest-preview { font-size: 12px; color: #aaa; padding: 8px 12px; background: #f8f8f8; border-radius: 8px; margin-top: 8px; }
-@media (max-width: 480px) {
-  .r-field-row { flex-wrap: wrap; gap: 6px; }
-  .r-field label { min-width: 100%; font-size: 13px; }
-  .r-field-input { width: 100% !important; font-size: 16px; }
-  .r-field-unit { min-width: auto; }
-  .r-field-hint { padding-left: 0; }
-  .r-card-grid { grid-template-columns: repeat(2, 1fr); }
-  .r-arch-row { flex-wrap: wrap; gap: 4px; }
-  .r-arch-sub { margin-left: 0; font-size: 11px; }
-  .r-check-option { padding: 10px 12px; }
-  .r-app h1 { font-size: 18px; }
-  .r-step { padding: 14px; }
+@media (max-width: 600px) {
+  .r-app { padding: 12px 0; }
+  .r-step { padding: 16px; margin-bottom: 12px; }
+  .r-app h1 { font-size: 20px; }
+  .r-step-title { font-size: 17px; }
+  .r-step-num { width: 30px; height: 30px; font-size: 14px; }
+  .r-field { margin-bottom: 18px; }
+  .r-field-row { flex-wrap: wrap; gap: 8px; }
+  .r-field label { min-width: 100%; font-size: 15px; color: #333; font-weight: 500; }
+  .r-field-input { width: 100% !important; font-size: 18px !important; padding: 10px 12px !important; border-radius: 8px !important; }
+  .r-field-unit { font-size: 15px; font-weight: 500; color: #555; }
+  .r-field-hint { padding-left: 0; font-size: 13px; margin-top: 6px; }
+  .r-option-title { font-size: 15px; }
+  .r-option-desc { font-size: 13px; }
+  .r-check-option { padding: 14px; }
+  .r-card-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .r-metric { padding: 12px; }
+  .r-metric-label { font-size: 12px !important; }
+  .r-metric-value { font-size: 20px !important; }
+  .r-metric-sub { font-size: 12px !important; }
+  .r-card-title { font-size: 15px; }
+  .r-arch-row { flex-wrap: wrap; gap: 4px; font-size: 14px; }
+  .r-arch-label { min-width: 60px; font-size: 14px; }
+  .r-arch-value { font-size: 14px; }
+  .r-arch-sub { margin-left: 0; font-size: 12px; width: 100%; }
+  .r-fixed-row { font-size: 14px; padding: 8px 0; }
+  .r-fixed-note { font-size: 12px; }
+  .r-status-card { font-size: 14px; }
+  .r-note { font-size: 12px; }
+  .r-invest-preview { font-size: 13px; }
+  .r-table-wrap table { font-size: 12px; }
+  .r-table-wrap th { font-size: 11px; padding: 8px 4px; }
+  .r-table-wrap td { padding: 9px 4px; font-size: 12px; }
+  .r-badge { font-size: 11px; padding: 3px 8px; }
+  .r-section-label { font-size: 12px; }
 }
 </style>
 
@@ -154,7 +177,7 @@
   </div>
 
   <div class="r-field">
-    <div class="r-field-row"><label>每人每月生活費</label><input class="r-field-input" id="r-expense-input" type="number" min="1" max="100" step="0.5" value="4" style="width:100px;"><span class="r-field-unit">萬台幣</span></div>
+    <div class="r-field-row"><label>每人每月生活費</label><input class="r-field-input" id="r-expense-input" type="number" min="5000" max="300000" step="1000" value="40000" style="width:130px;"><span class="r-field-unit">元台幣</span></div>
     <div class="r-field-hint" id="r-expense-hint">以現在的購買力計算，填入退休後每月所有生活開銷。</div>
   </div>
 </div>
@@ -325,13 +348,13 @@
   }
 
   function rUpdateExpenseHint() {
-    var expense = rVal('r-expense-input', 4);
+    var expense = rVal('r-expense-input', 40000);
     var hint = rGet('r-expense-hint');
     if (!hint) return;
     var base = '填入退休後每月所有生活開銷。若退休時房貸、保險等固定支出已結束，可填入比現在更低的金額。';
     hint.textContent = rFamilyCount === 2
-      ? '以現在的購買力計算，夫妻兩人合計 ' + (expense*2).toFixed(1) + ' 萬台幣/月。' + base
-      : '以現在的購買力計算，單身一人 ' + expense.toFixed(1) + ' 萬台幣/月。' + base;
+      ? '以現在的購買力計算，夫妻兩人合計 ' + ((expense/10000)*2).toFixed(1) + ' 萬台幣/月。' + base
+      : '以現在的購買力計算，單身一人 ' + (expense/10000).toFixed(1) + ' 萬台幣/月。' + base;
   }
 
   function rCalcAccum(p, m, inc, mx, gr, years) {
@@ -346,7 +369,7 @@
   function rGetVals() {
     return {
       age: rVal('r-age-input', 32),
-      expense: rVal('r-expense-input', 4),
+      expense: rVal('r-expense-input', 40000),
       principal: rVal('r-principal-input', 0),
       monthly: rVal('r-monthly-input', 20000),
       increase: rVal('r-increase-input', 0),
@@ -368,13 +391,13 @@
         : '每月投入固定 ' + rFmtMoney(v.monthly) + '，不增加';
     }
     var growthStock = rCalcAccum(v.principal, v.monthly, v.increase, v.maxMonthly, v.growthRate, accumYears);
-    var retireMonthlyNeed = v.expense * rFamilyCount * Math.pow(1+inflation, accumYears);
+    var retireMonthlyNeed = (v.expense/10000) * rFamilyCount * Math.pow(1+inflation, accumYears);
     var retireAnnualNeed = retireMonthlyNeed * 12;
     rUpdateExpenseHint();
     rGet('r-retire-age').textContent = v.retireAge + ' 歲';
     rGet('r-total').textContent = rFmtAmt(growthStock);
     rGet('r-monthly-need').textContent = retireMonthlyNeed.toFixed(1) + ' 萬';
-    rGet('r-monthly-sub').textContent = '含通膨，才足夠維持現在每人 ' + v.expense + ' 萬的購買力';
+    rGet('r-monthly-sub').textContent = '含通膨，才足夠維持現在每人 ' + (v.expense/10000).toFixed(1) + ' 萬的購買力';
     if (rRetireMethod === 'dividend') {
       rCalcDividend(v.age, accumYears, growthStock, retireMonthlyNeed, retireAnnualNeed, v.retireAge, targetAge, inflation, taxRate, v.principal, v.monthly, v.increase, v.maxMonthly, v.growthRate);
     } else {
