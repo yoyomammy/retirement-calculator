@@ -469,7 +469,7 @@
       tr.innerHTML = '<td><strong>' + a + '歲</strong></td><td>' + badge + '</td><td>' + portfolioLabel + '</td><td class="r-voo-cell">' + rFmtAmt(d.v) + '</td><td class="r-sell-cell">' + st + '</td><td>' + cashflow + '</td>';
       rGet('r-timeline-tbody').appendChild(tr);
     });
-    rGet('r-timeline-note').textContent = '藍色＝累積期｜橘色＝過渡轉換期（≤750萬/年）｜綠色＝完全股息期。購買力（現在等值）＝月現金流換算回現在購買力。';
+    rGet('r-timeline-note').innerHTML = '💡 <strong>怎麼看這張表？</strong><br>「相當於現在幾萬」幫你把未來的數字換算回現在的感覺——例如退休後領 8 萬股息，可能只有現在 3 萬的購買力，因為物價每年會漲。<br><br>藍色＝累積期｜橘色＝過渡轉換期（逐年把成長股換成股息股）｜綠色＝完全靠股息生活期。';
     var firstRetireData = null;
     for (var i = 0; i < td.length; i++) { if (td[i].age === retireAge + 5) { firstRetireData = td[i]; break; } }
     var firstPP = firstRetireData ? firstRetireData.pp : 0, firstMD = firstRetireData ? firstRetireData.md : 0;
@@ -497,7 +497,7 @@
       if (y < targetAge - retireAge) asset = (asset - aw) * (1 + R_RETIRE_GROWTH);
     }
     var last = td[td.length - 1], vsr = last.asset / growthStock;
-    rGet('r-timeline-thead').innerHTML = '<tr><th>年齡</th><th>階段</th><th>投資組合總值</th><th>當年提領（4%）</th><th>月提領／購買力</th>' + (growthStock < target ? '<th style="color:#A32D2D;">每月缺口</th>' : '') + '</tr>';
+    rGet('r-timeline-thead').innerHTML = '<tr><th>年齡</th><th>階段</th><th>投資組合總值</th><th>當年提領（4%）</th><th>那時領多少錢／等於現在幾萬</th>' + (growthStock < target ? '<th style="color:#A32D2D;">每月還差多少</th>' : '') + '</tr>';
     rGet('r-timeline-tbody').innerHTML = '';
     rBuildAccumRows(age, retireAge, p, m, inc, mx, gr, true, growthStock < target);
     var pts = [];
@@ -515,7 +515,7 @@
       tr.innerHTML = '<td><strong>' + a + '歲</strong></td><td><span class="r-badge r-b-teal">4%提領</span></td><td>' + rFmtAmt(d.asset) + '</td><td class="r-sell-cell">' + rFmtAmt(d.asset * R_WITHDRAW_RATE) + '</td><td>' + cashflow + '</td>' + gapCell;
       rGet('r-timeline-tbody').appendChild(tr);
     });
-    rGet('r-timeline-note').textContent = '4%提領：每年賣出總資產4%生活，維持成長型組合年化10%。報酬率高於提領率時，本金不減反增。購買力（現在等值）＝月提領換算回現在購買力。';
+    rGet('r-timeline-note').innerHTML = '💡 <strong>怎麼看這張表？</strong><br>「每月還差多少」是指：那個年紀領到的錢，還不夠你現在設定的生活費目標。差額可以靠勞保年金、退休後兼職、或提早多存幾年來補足。<br><br>「等於現在幾萬」幫你把未來的數字換算回現在的感覺——例如 20 年後領 7 萬，可能只有現在 3 萬的購買力，因為物價每年會漲。<br><br>藍色＝累積期｜綠色＝4%提領期。';
     var firstW = null;
     for (var i = 0; i < td.length; i++) { if (td[i].age === retireAge) { firstW = td[i]; break; } }
     var firstWPP = firstW ? firstW.pp : 0, firstWMW = firstW ? firstW.mw : 0;
