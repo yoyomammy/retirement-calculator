@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的退休財務計畫</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F7F7F7;color:#222;padding:24px 16px}
+h1{font-size:22px;font-weight:700;margin:0 0 4px;color:#111}
+.sub{font-size:13px;color:#888;margin:0 0 18px}
+.rapp{max-width:600px;margin:0 auto}
+.rbox{background:#fff;border:1px solid #E5E5E5;border-radius:12px;padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.rhead{display:flex;align-items:center;gap:9px;margin-bottom:16px}
+.rnum{width:28px;height:28px;border-radius:50%;background:#E6F1FB;color:#0C447C;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rnumg{width:28px;height:28px;border-radius:50%;background:#E0F5F0;color:#1A7A6A;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rtitle{font-size:16px;font-weight:600}
+.rf{margin-bottom:13px}.rf:last-child{margin-bottom:0}
+.rfrow{display:flex;align-items:center;gap:10px}
+.rfl{font-size:13px;color:#555;width:120px;min-width:120px;flex-shrink:0;line-height:1.4}
+.rfi{width:100px;font-size:14px;font-weight:600;color:#111;border:1.5px solid #ddd;border-radius:7px;padding:6px 10px;text-align:right;background:#fff;flex-shrink:0}
+.rfi:focus{outline:none;border-color:#378ADD}
+.rfu{font-size:13px;color:#888;white-space:nowrap;flex-shrink:0}
+.rfuw{font-size:13px;font-weight:700;color:#C05000;white-space:nowrap;flex-shrink:0}
+.rfh{font-size:11px;color:#bbb;margin-top:4px;padding-left:130px;line-height:1.5}
+.rph{font-size:11px;color:#C05000;background:#FFF5EE;border:1px solid #F5C9A0;border-radius:6px;padding:4px 10px;margin-top:4px;margin-left:130px;display:inline-block}
+.rwn{font-size:11px;color:#A32D2D;background:#FCEBEB;border:1px solid #F5C0C0;border-radius:6px;padding:4px 10px;margin-top:4px;margin-left:130px;display:none}
+.ropts{display:flex;flex-direction:column;gap:8px;flex:1}
+.ropt{cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;border:2px solid #E0E0E0;background:#FAFAFA;user-select:none;transition:all .15s}
+.ropt:hover{border-color:#aaa}
+.ropt.ab{border-color:#378ADD;background:#EEF5FD}
+.ropt.ag{border-color:#1A7A6A;background:#F0FAF8}
+.rcirc{width:20px;height:20px;border-radius:50%;border:2px solid #ddd;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.rcirc.cb{background:#378ADD;border-color:#378ADD}
+.rcirc.cg{background:#1A7A6A;border-color:#1A7A6A}
+.rcirc svg{display:block}
+.rotl{display:flex;flex-direction:column;gap:2px}
+.rott{font-size:14px;font-weight:600;color:#444}.rott.bl{color:#0C447C}.rott.gr{color:#1A7A6A}
+.rotd{font-size:12px;color:#aaa}.rotd.bl{color:#3A6FAD}.rotd.gr{color:#2A9A8A}
+.rprev{font-size:11px;color:#bbb;padding:6px 12px;background:#F5F5F5;border-radius:7px;margin-top:8px;display:none}
+.rbtns{display:flex;gap:8px;margin-bottom:8px;padding-left:130px;flex-wrap:wrap}
+.rbtn{cursor:pointer;padding:5px 14px;border-radius:20px;border:1.5px solid #ddd;background:#F5F5F5;font-size:12px;font-weight:600;color:#666;user-select:none;transition:all .15s}
+.rbtn:hover{border-color:#378ADD;color:#0C447C}
+.rbtn.ra{border-color:#378ADD;background:#EEF5FD;color:#0C447C}
+.rcard{border-radius:10px;padding:16px;margin-bottom:12px}
+.rcb{background:#EEF5FD;border:1px solid #B5D4F4}
+.rcg{background:#EAF3DE;border:1px solid #B5D99A}
+.rct{font-size:13px;font-weight:600;margin:0 0 12px}.rcb .rct{color:#0C447C}.rcg .rct{color:#3B6D11}
+.rcgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.rmc{background:#fff;border-radius:8px;padding:10px 12px}
+.rml{font-size:11px;color:#888;margin:0 0 4px;line-height:1.3}
+.rmv{font-size:16px;font-weight:700;color:#111;margin:0;padding:0;line-height:1.3}
+.rms{font-size:10px;color:#aaa;margin:3px 0 0}
+.rfc{background:#fff;border-radius:8px;padding:10px 12px}
+.rfl2{font-size:11px;color:#3B6D11;font-weight:600;margin:0 0 4px}
+.rfv{font-size:16px;font-weight:700;color:#3B6D11;margin:0}
+.rfs{font-size:11px;color:#777;margin:3px 0 0;line-height:1.4}
+.rdiv{border:none;border-top:1px solid #EEE;margin:14px 0}
+.rsl{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.08em;margin:12px 0 8px}
+.rtw{width:100%;overflow-x:auto}
+.rtw table{width:100%;border-collapse:collapse;font-size:12px}
+.rtw th{font-size:11px;font-weight:600;color:#888;text-align:left;padding:7px 8px;border-bottom:1px solid #ddd;background:#F5F5F5}
+.rtw td{padding:9px 8px;border-bottom:1px solid #F0F0F0;vertical-align:middle;line-height:1.5}
+.rac td{background:#F5F9FF}.rre td{background:#E6F1FB;font-weight:600}.rat td{background:#F0FAF8}.ren td{background:#EAF3DE}
+.rb{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600}
+.rbb{background:#E6F1FB;color:#0C447C}.rbt{background:#E0F5F0;color:#1A7A6A}.rbg{background:#F0F0F0;color:#666}
+.rok{font-size:10px;font-weight:600;color:#3B6D11;background:#EAF3DE;border-radius:3px;padding:1px 6px}
+.rbd2{font-size:10px;font-weight:600;color:#A32D2D;background:#FCEBEB;border-radius:3px;padding:1px 6px}
+.rsc{border-radius:8px;padding:12px 14px;margin-top:12px;font-size:13px;line-height:1.8}
+.rsok{background:#EAF3DE;color:#3B6D11}.rsbad{background:#FCEBEB;color:#A32D2D}
+.rnote{font-size:11px;color:#bbb;padding:8px 12px;background:#F5F5F5;border-radius:7px;line-height:1.6;margin-top:8px}
+.drow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #EEE;font-size:13px}
+.drow:last-child{border-bottom:none}
+.dlbl{color:#555}.dval{font-weight:700;color:#1A7A6A}
+.dres{border-radius:8px;padding:10px 12px;margin-top:10px;font-size:13px;line-height:1.7}
+.dref{background:#EAF3DE;border:1px solid #B5D99A;border-radius:10px;padding:14px;margin-top:12px;font-size:13px;line-height:1.8;color:#3B6D11}
+.dreft{font-size:14px;font-weight:700;margin:0 0 8px}
+</style>
+</head>
+<body>
+<div class="rapp">
+<h1>我的退休財務計畫</h1>
+<p class="sub">選擇你現在的狀態，算出退休後每個月有多少錢可以用。</p>
+
+<div class="rbox">
+  <div class="rhead"><div class="rnum" style="background:#F0F0F0;color:#555;font-size:16px">?</div><span class="rtitle">你現在的狀態是？</span></div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="ropt" id="oa"><div class="rcirc" id="ca"></div><div class="rotl"><span class="rott" id="ta">💪 我現在想衝資產</span><span class="rotd" id="da">每個月存錢投資，慢慢累積退休金</span></div></div>
+    <div class="ropt" id="od"><div class="rcirc" id="cd"></div><div class="rotl"><span class="rott" id="td">💰 我現在已經有一筆錢</span><span class="rotd" id="dd">想知道能不能靠股息退休</span></div></div>
+  </div>
+</div>
+
+<div id="sa" style="display:none">
+  <div class="rbox">
+    <div class="rhead"><div class="rnum">1</div><span class="rtitle">基本條件</span></div>
+    <div class="rf"><div class="rfrow"><span class="rfl">現在年齡</span><input class="rfi" id="age" type="number" min="20" max="70" placeholder="歲"><span class="rfu">歲</span></div></div>
+    <div class="rf">
+      <div class="rfrow" style="align-items:flex-start">
+        <span class="rfl" style="padding-top:6px">家庭組合</span>
+        <div class="ropts">
+          <div class="ropt" id="os1" data-f="1"><div class="rcirc" id="cs1"></div><div class="rotl"><span class="rott" id="ts1">👤 單身</span><span class="rotd" id="ds1">存一個人的退休金</span></div></div>
+          <div class="ropt ab" id="os2" data-f="2"><div class="rcirc cb" id="cs2"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rotl"><span class="rott bl" id="ts2">👫 夫妻兩人</span><span class="rotd bl" id="ds2">存兩個人的退休金</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="rf"><div class="rfrow"><span class="rfl">每人每月生活費</span><input class="rfi" id="exp" type="number" min="0.1" max="30" step="0.1" placeholder="萬"><span class="rfu">萬台幣</span></div><div class="rfh" id="exph">填退休後每月生活開銷，以現在的購買力計算。</div></div>
+  </div>
+  <div class="rbox">
+    <div class="rhead"><div class="rnum">2</div><span class="rtitle">投資條件</span></div>
+    <div class="rf"><div class="rfrow"><span class="rfl">現有本金</span><input class="rfi" id="pri" type="number" min="0" placeholder="0"><span class="rfuw">萬台幣</span></div><div class="rph">⚠️ 單位是「萬」——有 100 萬請填 100</div></div>
+    <div class="rf"><div class="rfrow"><span class="rfl">現在每月投入</span><input class="rfi" id="mon" type="number" min="0" step="1000" placeholder="元"><span class="rfu">元台幣</span></div></div>
+    <div class="rf"><div class="rfrow"><span class="rfl">加薪後每月多存</span><input class="rfi" id="inc" type="number" min="0" step="500" placeholder="0"><span class="rfu">元台幣</span></div><div class="rfh">每年加薪後多存多少，沒有加薪填 0。</div></div>
+    <div class="rf"><div class="rfrow"><span class="rfl">每月投入上限</span><input class="rfi" id="mxm" type="number" min="0" step="1000" placeholder="元"><span class="rfu">元台幣</span></div><div class="rfh" id="mxh">加薪後最多每月存多少，超過的留給生活用。</div><div class="rwn" id="wrn"></div></div>
+    <div class="rprev" id="prv"></div>
+    <div class="rf" style="margin-top:12px">
+      <div class="rfrow"><span class="rfl">預期年化報酬</span><input class="rfi" id="gr" type="number" min="1" max="30" step="0.5" placeholder="%"><span class="rfu">%</span></div>
+      <div class="rbtns"><div class="rbtn" id="rb6">保守 6%</div><div class="rbtn" id="rb8">穩健 8%</div><div class="rbtn" id="rb12">積極 12%</div></div>
+      <div class="rfh">長期平均報酬，不代表每年固定達到。</div>
+    </div>
+  </div>
+  <div class="rbox">
+    <div class="rhead"><div class="rnum">3</div><span class="rtitle">退休目標</span></div>
+    <div class="rf"><div class="rfrow"><span class="rfl">我想幾歲退休</span><input class="rfi" id="ret" type="number" min="40" max="80" placeholder="歲"><span class="rfu">歲</span></div></div>
+  </div>
+  <div class="rbox">
+    <div class="rhead"><div class="rnum">4</div><span class="rtitle">我的退休計畫</span></div>
+    <div class="rcard rcb">
+      <p class="rct">📊 退休那一天</p>
+      <div class="rcgrid">
+        <div class="rmc"><p class="rml">退休年齡</p><p class="rmv" id="rra">—</p></div>
+        <div class="rmc"><p class="rml">預估總資產</p><p class="rmv" id="rto">—</p></div>
+        <div class="rmc"><p class="rml">每月可以花多少</p><p class="rmv" id="rsp">—</p><p class="rms">以現在的錢來看</p></div>
+        <div class="rmc"><p class="rml">夠不夠用？</p><p class="rmv" id="rst">—</p></div>
+      </div>
+    </div>
+    <div class="rcard rcg" id="flx" style="display:none">
+      <p class="rct">🎉 你還有更多彈性！</p>
+      <div class="rcgrid">
+        <div class="rfc"><p class="rfl2">🕐 可以提早退休</p><p class="rfv" id="fe">—</p><p class="rfs" id="fes"></p></div>
+        <div class="rfc"><p class="rfl2">💸 可以提高生活費</p><p class="rfv" id="fx">—</p><p class="rfs" id="fxs"></p></div>
+      </div>
+    </div>
+    <div class="rdiv"></div>
+    <p class="rsl">完整人生時間軸</p>
+    <div class="rtw"><table><thead id="th"></thead><tbody id="tb"></tbody></table></div>
+    <div class="rnote" id="tn"></div>
+    <div class="rsc" id="sc" style="display:none"></div>
+  </div>
+</div>
+
+<div id="sd" style="display:none">
+  <div class="rbox">
+    <div class="rhead"><div class="rnumg">1</div><span class="rtitle">你現在有多少錢？</span></div>
+    <div class="rf"><div class="rfrow"><span class="rfl">現有總資產</span><input class="rfi" id="dp" type="number" min="0" placeholder="0"><span class="rfuw">萬台幣</span></div><div class="rph">⚠️ 單位是「萬」——有 1,000 萬請填 1000</div></div>
+    <div class="rf"><div class="rfrow"><span class="rfl">每人每月生活費</span><input class="rfi" id="de" type="number" min="0.1" max="30" step="0.1" placeholder="萬"><span class="rfu">萬台幣</span></div></div>
+    <div class="rf">
+      <div class="rfrow" style="align-items:flex-start">
+        <span class="rfl" style="padding-top:6px">家庭組合</span>
+        <div class="ropts">
+          <div class="ropt" id="ds1" data-f="1"><div class="rcirc" id="dc1"></div><div class="rotl"><span class="rott" id="dt1">👤 單身</span></div></div>
+          <div class="ropt ag" id="ds2" data-f="2"><div class="rcirc cg" id="dc2"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="rotl"><span class="rott gr" id="dt2">👫 夫妻兩人</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rbox">
+    <div class="rhead"><div class="rnumg">2</div><span class="rtitle">股息試算結果</span></div>
+    <div style="background:#F5F5F5;border-radius:8px;padding:12px 14px">
+      <div class="drow"><span class="dlbl">每年股息收入（4% 殖利率）</span><span class="dval" id="da1">—</span></div>
+      <div class="drow"><span class="dlbl">現在每月可以領</span><span class="dval" id="da2">—</span></div>
+      <div class="drow"><span class="dlbl">5年後每月（3% 股息成長）</span><span class="dval" id="da3">—</span></div>
+      <div class="drow"><span class="dlbl">10年後每月</span><span class="dval" id="da4">—</span></div>
+    </div>
+    <div class="dres" id="dres" style="display:none"><span id="dvd"></span></div>
+    <div class="dref">
+      <p class="dreft">📋 想進一步規劃？</p>
+      <p style="margin:0;font-size:13px">股息退休還需要考慮資產配置、遺產稅規劃等細節。我認識一位專業的資產規劃師，可以幫你量身規劃。<br><br>有興趣的話，歡迎聯絡我了解更多！</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+  var fam=2,dfam=2,WR=0.04,RG=0.10,INF=0.04,END=90;
+  var svgW='<svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function g(id){return document.getElementById(id);}
+  function v(id,d){var el=g(id);if(!el)return d;var n=parseFloat(el.value);return isNaN(n)?d:n;}
+  function fmt(w){if(w>=100000)return(w/100000).toFixed(2)+' 百億';if(w>=10000)return(w/10000).toFixed(2)+' 億';if(w<=0)return'0 萬';return Math.round(w).toLocaleString()+' 萬';}
+  function fmtM(n){return Math.abs(n)>=10000?(n/10000).toFixed(1)+' 萬':Math.round(n).toLocaleString()+' 元';}
+  function fmtPP(pp,f){var per=Math.round(pp/f*10)/10,tot=Math.round(per*f*10)/10;return f===2?'每人 <strong>'+per.toFixed(1)+' 萬</strong>，合計 <strong>'+tot.toFixed(1)+' 萬</strong>':'<strong>'+per.toFixed(1)+' 萬</strong>';}
+  function setMode(m){
+    var isA=(m==='a');
+    if(isA){g('oa').className='ropt ab';g('ca').className='rcirc cb';g('ca').innerHTML=svgW;g('ta').className='rott bl';g('da').className='rotd bl';g('od').className='ropt';g('cd').className='rcirc';g('cd').innerHTML='';g('td').className='rott';g('dd').className='rotd';}
+    else{g('od').className='ropt ag';g('cd').className='rcirc cg';g('cd').innerHTML=svgW;g('td').className='rott gr';g('dd').className='rotd gr';g('oa').className='ropt';g('ca').className='rcirc';g('ca').innerHTML='';g('ta').className='rott';g('da').className='rotd';}
+    g('sa').style.display=isA?'':'none';g('sd').style.display=isA?'none':'';
+  }
+  function setFam(n){fam=n;
+    if(n===1){g('os1').className='ropt ab';g('cs1').className='rcirc cb';g('cs1').innerHTML=svgW;g('ts1').className='rott bl';g('ds1').className='rotd bl';g('os2').className='ropt';g('cs2').className='rcirc';g('cs2').innerHTML='';g('ts2').className='rott';g('ds2').className='rotd';}
+    else{g('os2').className='ropt ab';g('cs2').className='rcirc cb';g('cs2').innerHTML=svgW;g('ts2').className='rott bl';g('ds2').className='rotd bl';g('os1').className='ropt';g('cs1').className='rcirc';g('cs1').innerHTML='';g('ts1').className='rott';g('ds1').className='rotd';}
+    updEH();calc();
+  }
+  function setDFam(n){dfam=n;
+    if(n===1){g('ds1').className='ropt ag';g('dc1').className='rcirc cg';g('dc1').innerHTML=svgW;g('dt1').className='rott gr';g('ds2').className='ropt';g('dc2').className='rcirc';g('dc2').innerHTML='';g('dt2').className='rott';}
+    else{g('ds2').className='ropt ag';g('dc2').className='rcirc cg';g('dc2').innerHTML=svgW;g('dt2').className='rott gr';g('ds1').className='ropt';g('dc1').className='rcirc';g('dc1').innerHTML='';g('dt1').className='rott';}
+    calcDiv();
+  }
+  function updEH(){var e=v('exp',0),h=g('exph');if(!h)return;if(!e){h.textContent='填退休後每月生活開銷，以現在的購買力計算。';return;}h.textContent=fam===2?'夫妻兩人合計每月 '+(e*2).toFixed(1)+' 萬台幣。':'單身每月 '+e.toFixed(1)+' 萬台幣。';}
+  function updMH(){var m=v('mon',0),i=v('inc',0),mx=v('mxm',0),h=g('mxh');if(!h)return;if(!mx){h.textContent='加薪後最多每月存多少，超過的留給生活用。';return;}h.textContent=i>0&&m>0?'每月從 '+fmtM(m)+' 開始，加薪後多存 '+fmtM(i)+'，最多存到 '+fmtM(mx)+' 就好。':'每月固定存 '+fmtM(m||mx)+'。';}
+  function chkW(){var m=v('mon',0),mx=v('mxm',0),w=g('wrn');if(!w)return;if(mx>0&&mx<m){w.style.display='block';w.textContent='⚠️ 每月投入上限（'+fmtM(mx)+'）比現在每月投入（'+fmtM(m)+'）還低，請把上限調高。';}else w.style.display='none';}
+  function accum(p,m,i,mx,gr,yrs){var gs=p||0;for(var y=1;y<=yrs;y++){var cm=m;if(i>0)cm=mx>0?Math.min(m+i*(y-1),mx):m+i*(y-1);gs=gs*(1+gr)+cm*12/10000;}return gs;}
+  function setRate(r){var inp=g('gr');if(inp)inp.value=r;[6,8,12].forEach(function(x){var b=g('rb'+x);if(b)b.className='rbtn'+(x===r?' ra':'');});calc();}
+  function syncR(){var c=v('gr',0);[6,8,12].forEach(function(x){var b=g('rb'+x);if(b)b.className='rbtn'+(x===c?' ra':'');});}
+  function calcDiv(){
+    var p=v('dp',0),e=v('de',0);
+    if(!p){['da1','da2','da3','da4'].forEach(function(id){var el=g(id);if(el)el.textContent='—';});g('dres').style.display='none';return;}
+    var ann=p*0.04,mon=ann/12,m5=p*0.04*Math.pow(1.03,5)/12,m10=p*0.04*Math.pow(1.03,10)/12;
+    g('da1').textContent=ann.toFixed(1)+' 萬';
+    g('da2').innerHTML=fmtPP(mon,dfam);g('da3').innerHTML=fmtPP(m5,dfam);g('da4').innerHTML=fmtPP(m10,dfam);
+    if(e>0){
+      var need=e*dfam,dr=g('dres'),dv=g('dvd');dr.style.display='';
+      if(mon>=need){dv.innerHTML='<span style="color:#1A7A6A;font-weight:700">✓ 現在的資產已足夠靠股息退休！</span>每月股息已超過生活目標。';dr.style.cssText='background:#F0FAF8;border:1px solid #A8DDD0;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:13px;line-height:1.7';}
+      else{var gap=need-mon;dv.innerHTML='目前每月股息還差 <strong>'+(gap/dfam).toFixed(1)+' 萬/人</strong>（合計差 <strong>'+gap.toFixed(1)+' 萬</strong>）才能達到生活目標。';dr.style.cssText='background:#FFFBF0;border:1px solid #E8D9A0;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:13px;line-height:1.7';}
+    }else g('dres').style.display='none';
+  }
+  function calc(){
+    var age=v('age',0),ew=v('exp',0),p=v('pri',0),m=v('mon',0),inc=v('inc',0),mx=v('mxm',999999),gr=v('gr',0)/100,ret=v('ret',0);
+    var prv=g('prv');
+    if(m>0&&gr>0&&ret>age){var rmx=inc>0&&mx<999999?Math.ceil((mx-m)/inc):999;prv.style.display='';prv.textContent=inc>0?'投入預覽：第1年每月 '+fmtM(m)+' → 第'+Math.min(rmx,10)+'年每月 '+fmtM(Math.min(m+inc*(Math.min(rmx,10)-1),mx)):'每月固定投入 '+fmtM(m);}else prv.style.display='none';
+    updMH();chkW();updEH();
+    if(!age||!ret||!gr||ret<=age){['rra','rto','rsp','rst'].forEach(function(id){var el=g(id);if(el)el.innerHTML='—';});g('flx').style.display='none';g('tb').innerHTML='';g('sc').style.display='none';return;}
+    var yrs=ret-age,gs=accum(p,m,inc,mx,gr,yrs);
+    var ppR=gs*WR/12/Math.pow(1+INF,yrs),tP=ew*fam,tA=ew>0?tP*Math.pow(1+INF,yrs)*12/WR:0,ok=tA>0&&gs>=tA;
+    g('rra').textContent=ret+' 歲';g('rto').textContent=fmt(gs);
+    g('rsp').innerHTML=ew>0?fmtPP(ppR,fam):'填入生活費後計算';
+    if(!ew)g('rst').textContent='填入生活費後計算';
+    else if(ok)g('rst').innerHTML='<span class="rok">✓ 夠用</span>';
+    else g('rst').innerHTML='<span class="rbd2">✗ 差 '+(tP-ppR).toFixed(1)+' 萬/月</span>';
+    var fc=g('flx');
+    if(ok){fc.style.display='';var ear=null;for(var a=age+1;a<=ret;a++){var g2=accum(p,m,inc,mx,gr,a-age),t=ew*fam*Math.pow(1+INF,a-age)*12/WR;if(g2>=t){ear=a;break;}}
+      g('fe').textContent=ear?ear+' 歲':'已是最早';g('fes').textContent=ear&&ear<ret?'比原計畫提早 '+(ret-ear)+' 年':'';
+      var me=gs*WR/12/Math.pow(1+INF,yrs)/fam;g('fx').textContent=me.toFixed(1)+' 萬／人';g('fxs').textContent=me>ew?'比現在多 '+(me-ew).toFixed(1)+' 萬可花':'';
+    }else fc.style.display='none';
+    buildTL(age,ret,p,m,inc,mx,gr,gs,ppR,tP,yrs,ok,ew);
+  }
+  function buildTL(age,ret,p,m,inc,mx,gr,gs,ppR,tP,yrs,ok,ew){
+    g('th').innerHTML='<tr><th>年齡</th><th>階段</th><th>資產與每月可花</th></tr>';
+    var tb=g('tb');tb.innerHTML='';
+    for(var a=age;a<ret;a+=5){var g2=accum(p,m,inc,mx,gr,a-age);var tr=document.createElement('tr');tr.className='rac';tr.innerHTML='<td><strong>'+a+' 歲</strong></td><td><span class="rb rbb">累積中</span></td><td>'+fmt(g2)+'</td>';tb.appendChild(tr);}
+    var tr0=document.createElement('tr');tr0.className='rre';tr0.innerHTML='<td><strong>'+ret+' 歲</strong></td><td><span class="rb rbt">退休</span></td><td>總資產 '+fmt(gs)+'</td>';tb.appendChild(tr0);
+    var pts=[];for(var a=ret+5;a<=END;a+=5)pts.push(a);if(pts.indexOf(END)===-1)pts.push(END);
+    pts.forEach(function(a){
+      var ya=a-ret,asset=gs;for(var y=1;y<=ya;y++)asset=(asset-asset*WR)*(1+RG);
+      var pp=asset*WR/12/Math.pow(1+INF,yrs+ya),isEnd=(a===END);
+      var tr=document.createElement('tr');tr.className=isEnd?'ren':'rat';
+      var badge=isEnd?'<span class="rb rbg">90歲</span>':'<span class="rb rbt">退休中</span>';
+      var tag=ew>0?(pp>=tP?'<span class="rok">✓ 夠</span>':'<span class="rbd2">✗ 差 '+(tP-pp).toFixed(1)+' 萬</span>'):'';
+      tr.innerHTML='<td><strong>'+a+' 歲</strong></td><td>'+badge+'</td><td>總資產 '+fmt(asset)+'<br><span style="font-size:11px;color:#666">每月可花 '+fmtPP(pp,fam)+'</span> '+tag+'</td>';
+      tb.appendChild(tr);
+    });
+    g('tn').innerHTML='💡 用 4% 提領法則計算，每年提領約 4%，剩下繼續增值。數字已換算回現在的購買力。';
+    var sc=g('sc');if(!ew){sc.style.display='none';return;}sc.style.display='';
+    if(ok){sc.className='rsc rsok';sc.textContent=ret+'歲退休，錢夠用，而且越來越多！';}
+    else{var gap=tP-ppR;sc.className='rsc rsbad';sc.innerHTML='以目前的計畫，退休後每月還差約 <strong>'+gap.toFixed(1)+' 萬</strong>。<br><br>💡 可以調整的方向：<br>1. 增加每月投入，或提高初始本金<br>2. 延後退休年齡，讓資產多複利幾年<br>3. 降低退休後的生活費';}
+  }
+  function bind(){
+    ['age','exp','pri','mon','inc','mxm','gr','ret'].forEach(function(id){var el=g(id);if(!el)return;el.addEventListener('input',function(){if(id==='exp')updEH();if(['inc','mon','mxm'].indexOf(id)!==-1){updMH();chkW();}if(id==='gr')syncR();calc();});});
+    ['dp','de'].forEach(function(id){var el=g(id);if(!el)return;el.addEventListener('input',calcDiv);});
+    [6,8,12].forEach(function(r){var b=g('rb'+r);if(b)b.addEventListener('click',function(){setRate(r);});});
+    ['os1','os2'].forEach(function(id){var el=g(id);if(el)el.addEventListener('click',function(){setFam(parseInt(el.getAttribute('data-f'),10));});});
+    ['ds1','ds2'].forEach(function(id){var el=g(id);if(el)el.addEventListener('click',function(){setDFam(parseInt(el.getAttribute('data-f'),10));});});
+    g('oa').addEventListener('click',function(){setMode('a');});
+    g('od').addEventListener('click',function(){setMode('d');});
+  }
+  function init(){try{bind();setFam(2);setDFam(2);}catch(e){console.error(e);}}
+  window.addEventListener('DOMContentLoaded',init);
+})();
+</script>
+</body>
+</html>
